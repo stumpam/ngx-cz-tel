@@ -16,7 +16,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ngx-cz-tel/ngx-cz-tel": ["libs/ngx-cz-tel/src/index.ts"]
+      "@stumpam/ngx-cz-tel": ["libs/ngx-cz-tel/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
