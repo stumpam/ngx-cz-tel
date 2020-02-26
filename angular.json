@@ -120,6 +120,50 @@
           }
         }
       }
+    },
+    "ngx-cz-tel": {
+      "projectType": "library",
+      "root": "libs/ngx-cz-tel",
+      "sourceRoot": "libs/ngx-cz-tel/src",
+      "prefix": "ngx-cz-tel",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/ngx-cz-tel/tsconfig.lib.json",
+            "project": "libs/ngx-cz-tel/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ngx-cz-tel/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/ngx-cz-tel/tsconfig.lib.json",
+              "libs/ngx-cz-tel/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/ngx-cz-tel/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ngx-cz-tel/jest.config.js",
+            "tsConfig": "libs/ngx-cz-tel/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/ngx-cz-tel/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {
