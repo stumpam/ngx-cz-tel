@@ -9,3 +9,7 @@
   <button (click)="slovak()">Slovak</button>
   <button (click)="setNull()">Null</button>
 </main>
+
+<form [formGroup]="form">
+  <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+</form>

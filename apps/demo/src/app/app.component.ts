@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   selector: 'ngx-cz-tel-root',
@@ -11,8 +12,26 @@ export class AppComponent implements OnInit {
 
   ctrl = new FormControl('');
 
+  form = new FormGroup({});
+  model = {};
+  fields: FormlyFieldConfig[] = [
+    {
+      key: 'tel',
+      type: 'tel',
+      templateOptions: {
+        label: 'Phone number',
+        placeholder: '+420 000 000 000',
+        required: true,
+        attributes: {
+          inputmode: 'tel',
+        },
+      },
+    },
+  ];
+
   ngOnInit() {
     this.ctrl.valueChanges.subscribe(val => console.log('appCmp: ', val));
+    this.form.valueChanges.subscribe(val => console.log('formly: ', val));
   }
 
   slovak() {
