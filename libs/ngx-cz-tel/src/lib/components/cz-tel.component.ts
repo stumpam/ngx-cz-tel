@@ -4,6 +4,8 @@ import {
   Component,
   ElementRef,
   forwardRef,
+  Input,
+  OnInit,
   Renderer2,
   ViewChild,
   ViewEncapsulation,
@@ -27,8 +29,9 @@ export const TEL_VALUE_ACCESSOR: any = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class CzTelComponent implements ControlValueAccessor {
+export class CzTelComponent implements ControlValueAccessor, OnInit {
   @ViewChild('field', { static: true }) field: ElementRef<HTMLInputElement>;
+  @Input() attributes = {};
 
   touchedFn: any = null;
   changeFn: any = null;
@@ -41,6 +44,17 @@ export class CzTelComponent implements ControlValueAccessor {
     private readonly renderer: Renderer2,
     private readonly cd: ChangeDetectorRef,
   ) {}
+
+  ngOnInit() {
+    Object.entries(this.attributes).forEach(([attr, value]) => {
+      this.renderer.setAttribute(
+        this.field.nativeElement,
+        attr,
+        value.toString(),
+      );
+    });
+  }
+
   writeValue(obj: string | null): void {
     if (obj === null || obj === '') {
       this.updateValue('');
