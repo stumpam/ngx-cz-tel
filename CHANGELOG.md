@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/stumpam/ngx-cz-tel/compare/v1.0.0...v1.1.0) (2020-03-02)
+
+
+### Features
+
+* **demo:** add ngx-formly to the demo app ([d71d70f](https://github.com/stumpam/ngx-cz-tel/commit/d71d70f164390c3731e3cba50e07ad76daef7ded))
+* **lib:** bind passed attributes directly to input element ([c1c5646](https://github.com/stumpam/ngx-cz-tel/commit/c1c564655bd327a5ddd6cd1e5297efa9b65faaf7))
+
 ## 1.0.0 (2020-02-26)
 
 
