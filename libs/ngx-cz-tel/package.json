@@ -1,6 +1,6 @@
 {
   "name": "@stumpam/ngx-cz-tel",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Angular masked input for czech/slovak phone numbers.",
   "homepage": "https://github.com/stumpam/ngx-cz-tel",
   "author": "Martin Štumpa (https://github.com/stumpam)",

@@ -105,9 +105,11 @@ export class CzTelComponent implements ControlValueAccessor, OnInit {
           (length === 3 && char !== '0' && char !== '1') ||
           (length === 4 && char !== ' '),
       );
-
       if (failed) {
         this.updateValue(`${this.prefix || '+420'} ${lastChar}`);
+      } else if (!value && this.prevState) {
+        this.changeFn?.(null);
+        this.prevState = false;
       }
 
       return;
@@ -118,11 +120,11 @@ export class CzTelComponent implements ControlValueAccessor, OnInit {
       .replace(/\s/g, '')
       .replace(/\+/g, '');
 
-    const send = value.length === 9;
-
     if (value.length > 9) {
       value = value.slice(0, 9);
     }
+
+    const send = value.length === 9;
 
     const formattedValue = [...value]
       .map((d, i) => (i % 3 === 0 ? ' ' + d : d))
