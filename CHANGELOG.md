@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/stumpam/ngx-cz-tel/compare/v1.1.0...v1.1.1) (2020-03-09)
+
+
+### Bug Fixes
+
+* **lib:** deletion of tel emits null value ([60580cc](https://github.com/stumpam/ngx-cz-tel/commit/60580cc9ebcb8f9661bd34ce5d25c691055990af)), closes [#2](https://github.com/stumpam/ngx-cz-tel/issues/2)
+
 ## [1.1.0](https://github.com/stumpam/ngx-cz-tel/compare/v1.0.0...v1.1.0) (2020-03-02)
 
 
