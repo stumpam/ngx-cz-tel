@@ -1,2 +1,2 @@
 export * from './lib/ngx-cz-tel.module';
-export { CzTelComponent } from './lib/components/cz-tel.component';
+export { formatCzechPhoneNumber } from './lib/functions/format.functions';
