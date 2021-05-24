@@ -1,59 +1,39 @@
 import {
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component,
+  Directive,
   ElementRef,
   forwardRef,
-  Input,
-  OnInit,
   Renderer2,
-  ViewChild,
-  ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const TEL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => CzTelComponent),
+  useExisting: forwardRef(() => CzTelDirective),
   multi: true,
 };
 
-@Component({
-  selector: 'ngx-cz-tel',
-  template: '<input #field type="string" [disabled]="disabled">',
+@Directive({
+  selector: '[ngxCzTel]',
   providers: [TEL_VALUE_ACCESSOR],
-  // tslint:disable-next-line: no-host-metadata-property
   host: {
     '(input)': 'onInput($event.target.value)',
+    '(blur)': 'onBlur()',
+    // '(click)': 'onClick($event.target.value)',
   },
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
 })
-export class CzTelComponent implements ControlValueAccessor, OnInit {
-  @ViewChild('field', { static: true }) field: ElementRef<HTMLInputElement>;
-  @Input() attributes = {};
-
+export class CzTelDirective implements ControlValueAccessor {
   touchedFn: any = null;
   changeFn: any = null;
   disabled = false;
-  prevState = false;
 
   prefix = '';
 
   constructor(
     private readonly renderer: Renderer2,
     private readonly cd: ChangeDetectorRef,
+    private readonly field: ElementRef<HTMLInputElement>,
   ) {}
-
-  ngOnInit() {
-    Object.entries(this.attributes).forEach(([attr, value]) => {
-      this.renderer.setAttribute(
-        this.field.nativeElement,
-        attr,
-        value.toString(),
-      );
-    });
-  }
 
   writeValue(obj: string | null): void {
     if (obj === null || obj === '') {
@@ -76,7 +56,8 @@ export class CzTelComponent implements ControlValueAccessor, OnInit {
   registerOnTouched(fn: any): void {
     this.touchedFn = fn;
   }
-  setDisabledState?(isDisabled: boolean): void {
+
+  setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
     this.cd.markForCheck();
   }
@@ -89,12 +70,7 @@ export class CzTelComponent implements ControlValueAccessor, OnInit {
     }
 
     const prefix = /^(\+42[01])/.exec(value);
-
-    if (prefix?.[1]) {
-      this.prefix = prefix[1];
-    } else {
-      this.prefix = '+420';
-    }
+    this.prefix = prefix?.[1] || '+420';
 
     if (value.length < 6) {
       const failed = [...value].find(
@@ -107,9 +83,8 @@ export class CzTelComponent implements ControlValueAccessor, OnInit {
       );
       if (failed) {
         this.updateValue(`${this.prefix || '+420'} ${lastChar}`);
-      } else if (!value && this.prevState) {
+      } else if (!value) {
         this.changeFn?.(null);
-        this.prevState = false;
       }
 
       return;
@@ -135,10 +110,12 @@ export class CzTelComponent implements ControlValueAccessor, OnInit {
 
     this.updateValue(prefixedValue);
 
-    if (this.prevState !== send) {
-      this.changeFn?.(send ? prefixedValue.replace(/\s/g, '') : null);
-    }
-    this.prevState = send;
+    const sendValue = send ? prefixedValue.replace(/\s/g, '') : null;
+    this.changeFn?.(sendValue);
+  }
+
+  onBlur(): void {
+    this.touchedFn?.();
   }
 
   updateValue(value: string) {

@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CzTelComponent } from './components/cz-tel.component';
+import { NgModule } from '@angular/core';
+
+import { CzTelDirective } from './directives/cz-tel.directive';
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [CzTelComponent],
-  exports: [CzTelComponent]
+  declarations: [CzTelDirective],
+  exports: [CzTelDirective],
 })
 export class NgxCzTelModule {}

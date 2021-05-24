@@ -1,9 +1,13 @@
 <header class="flex">
-  <img alt="Nx logo" width="75" src="https://nx.dev/assets/images/nx-logo-white.svg" />
+  <img
+    alt="Nx logo"
+    width="75"
+    src="https://nx.dev/assets/images/nx-logo-white.svg"
+  />
   <h1>Welcome to {{ title }}!</h1>
 </header>
 <main>
-  <ngx-cz-tel [formControl]="ctrl"></ngx-cz-tel>
+  <input ngxCzTel [formControl]="ctrl" />
   <button (click)="czech()">Czech</button>
   <button (click)="czechShort()">Czech Short</button>
   <button (click)="slovak()">Slovak</button>
