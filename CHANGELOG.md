@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/stumpam/ngx-cz-tel/compare/v1.1.1...v2.0.0) (2021-05-24)
+
+
+### Features
+
+* export czech phone formating fn ([6ea241f](https://github.com/stumpam/ngx-cz-tel/commit/6ea241f75a6077b38bb1852869ceeacf426e67fc))
+* move logic to the directive ([1eb04b7](https://github.com/stumpam/ngx-cz-tel/commit/1eb04b7cedb1196fd4c4a4c59f91522c9648b967))
+
 ### [1.1.1](https://github.com/stumpam/ngx-cz-tel/compare/v1.1.0...v1.1.1) (2020-03-09)
 
 
