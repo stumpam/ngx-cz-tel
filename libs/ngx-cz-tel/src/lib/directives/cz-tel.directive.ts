@@ -19,7 +19,6 @@ export const TEL_VALUE_ACCESSOR: any = {
   host: {
     '(input)': 'onInput($event.target.value)',
     '(blur)': 'onBlur()',
-    // '(click)': 'onClick($event.target.value)',
   },
 })
 export class CzTelDirective implements ControlValueAccessor {
@@ -28,6 +27,7 @@ export class CzTelDirective implements ControlValueAccessor {
   disabled = false;
 
   prefix = '';
+  prevValue = '';
 
   constructor(
     private readonly renderer: Renderer2,
@@ -63,7 +63,12 @@ export class CzTelDirective implements ControlValueAccessor {
   }
 
   onInput(value: string) {
-    const lastChar = value.slice(-1);
+    const selection = this.field.nativeElement.selectionStart;
+
+    const originalLength = value.length;
+    const charAfterSelection = value.charAt(selection);
+    const lastChar = value.charAt(value.length - 1);
+
     if (Number.isNaN(+lastChar) && !(value.length === 1 && lastChar === '+')) {
       this.updateValue(value.slice(0, -1));
       return;
@@ -112,6 +117,15 @@ export class CzTelDirective implements ControlValueAccessor {
 
     const sendValue = send ? prefixedValue.replace(/\s/g, '') : null;
     this.changeFn?.(sendValue);
+
+    const position =
+      originalLength < prefixedValue.length ||
+      (this.prevValue.length <= prefixedValue.length &&
+        charAfterSelection === ' ')
+        ? selection + 1
+        : selection;
+    this.field.nativeElement.setSelectionRange(position, position);
+    this.prevValue = prefixedValue;
   }
 
   onBlur(): void {
